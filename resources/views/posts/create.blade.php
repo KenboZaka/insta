@@ -23,7 +23,7 @@
                         @csrf
                         <label for="content">投稿</label>
                         <textarea name="content" id="editor" cols="10" rows="10" class="form-control mb-5"></textarea>
-                        <label for="image" class="mt-3">投稿イメージ</label>
+                        <label for="image" class="mt-3">投稿イメージ (.pngまたはjpeg形式)</label>
                         <input type="file" name="image" class="form-control-file">
                         <label for="station_id" class=" mt-3">駅があるところ</label>
                         <select name="station_id" class="form-control">

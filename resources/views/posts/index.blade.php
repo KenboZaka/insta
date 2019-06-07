@@ -16,7 +16,7 @@
                             <form action="/posts/search" method="post" class="form-group">
                                 @csrf
                                 <div class="input-group">
-                                <input type="text" name="search" class="form-control-sm">
+                                <input type="text" name="search" class="form-control-sm" placeholder="内容を検索">
                                 <button type="submit">
                                     <i class="fas fa-search input-group-append"></i>
                                 </button>
@@ -41,16 +41,17 @@
                                 @endif
                             <div class="col-lg-8 p-3">
                                 @if(Auth::check())
-                                    <a class="detail btn btn-primary float-right mx-4" href="/user/{{$post->user_id}}">{{$post->users->name}}さんの投稿一覧</a>
-                                    <p class="p-1 mb-2">名前: {{$post->users->name}}</p>
+                                    <a class="detail btn btn-primary float-right mx-3" href="/user/{{$post->user_id}}">{{$post->users->name}}さんの投稿一覧</a>
+                                    <p class="h5 p-1 mb-2">名前: {{$post->users->name}}</p>
                                 @else
-                                    <p class="mb-2">名前: {{$post->users->name}}</p>
+                                    <p class="h5 mb-2">名前: {{$post->users->name}}</p>
                                 @endif
-                                    <p>駅がある区：<a href="/stations/{{$post->station_id}}">{{$post->stations->station_name}}</a></p>       
+                                    <p class="h5 py-1">駅がある区：<a href="/stations/{{$post->station_id}}" class="badge bagde-pill badge-success">{{$post->stations->station_name}}</a></p>       
                                 @foreach($post->tags as $tag)
-                                    <p>タグ：<a href="/tags/{{$tag->id}}">{{$post->tag_name}}</a></p>
+                                    <p class="h5 py-1">タグ：<a href="/tags/{{$tag->id}}" class="badge bagde-pill badge-warning">{{$post->tag_name}}</a></p>
                                 @endforeach
-                                    <p class="mb-0">内容：{!!nl2br($post->content)!!}</p>
+                                    <p class="h5 mb-0">内容：</p>
+                                    <p class="h5 mb-0 px-3">{!!nl2br($post->content)!!}</p>
                                 <a class="detail_post btn btn-primary float-left my-3" href="/posts/{{$post->id}}">詳細へ</a>
                             </div> 
                             </div>
