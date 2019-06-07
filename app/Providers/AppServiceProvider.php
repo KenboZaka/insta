@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         // 本番環境では、httpsでリンクを作成
-        if (\app::environment('production')) {
+        if (\App::environment('production')) {
             \URL::forceScheme('https');       
         }
     }
