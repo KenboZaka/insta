@@ -54,14 +54,11 @@ class PostController extends Controller
         
         if($request->has('image'))
         {
-        $image = base64_encode(file_get_contents($request->image->getRealPath()));
-        Post::insert(["image" => $image]);
-        // $filename = $request->file('image')->store('public/images');
-        // $post->image = basename($filename);
+        // $image = base64_encode(file_get_contents($request->image->getRealPath()));
+        // Post::insert(["image" => $image]);
+        $filename = $request->file('image')->store('public/images');
+        $post->image = basename($filename);
         }
-
-        $image = base64_encode(file_get_contents($request->image->getRealPath()));
-        Post::insert(["image" => $image]);
 
         $post->tag_name = $request->tag_name;
         $tag_name = $post->tag_name;
