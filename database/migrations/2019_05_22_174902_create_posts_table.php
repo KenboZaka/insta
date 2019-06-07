@@ -17,8 +17,8 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('station_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->text('content');
-            $table->string('image')->nullable();
+            $table->text('content')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
             
             $table->foreign('station_id')->references('id')->on('stations')->onDelete('cascade');
