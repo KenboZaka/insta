@@ -33,7 +33,7 @@
                             @if(isset($post->image))
                                 <div class="col-lg-4">
                                    
-                                    <img src="{{asset('storage/images/'.$post->image)}}" width="300px" class="my-3 rounded border">
+                                    <img src="{{$post->image)}}" width="300px" class="my-3 rounded border">
                                 </div>
                                 @else
                                 <div class="col-lg-4 text-center py-5">
