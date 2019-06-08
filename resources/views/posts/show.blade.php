@@ -12,7 +12,8 @@
                             
                                 <div class="col-lg-4">
                                         @if(isset($post->image))
-                                        <img src="{{asset('storage/images/'.$post->image)}}" width="400px" class="img-fluid float-left rounded">
+                                        <img src="{!! Storage::disk('s3')->url($post->image) !!}" width="350" class="my-3 rounded border">
+                                        
                                     @else
                                     <div class="col-lg-4 text-center py-5">
                                         <i class="fas fa-5x fa-subway">no image</i>

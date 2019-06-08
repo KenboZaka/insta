@@ -13,7 +13,8 @@
                     @foreach($posts as $post)
                     <div class="col-lg-3">
                         @if(isset($post->image))
-                            <a href="/posts/{{$post->id}}"><img src="{{asset('storage/images/'.$post->image)}}" width="300" class="img-fluid"></a>
+                        
+                            <a href="/posts/{{$post->id}}"><img src="{!! Storage::disk('s3')->url($post->image) !!}" width="300" class="img-fluid"></a>
                             <p>{{$post->created_at->format('Y年m月d日')}}</p>
                         @else
                             <div class="text-center py-3 mb-0 float-lg-left">

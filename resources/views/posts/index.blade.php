@@ -32,7 +32,7 @@
                             
                             @if(isset($post->image))
                                 <div class="col-lg-4">
-                                        <img src="{!! Storage::disk('s3')->url($post->image) !!}" width="350" class="my-3 rounded border">
+                                        <img src="{!! Storage::disk('s3')->url($post->image) !!}" width="300" class="my-3 rounded border">
                                 </div>
                                 @else
                                 <div class="col-lg-4 text-center py-5">
