@@ -9,6 +9,7 @@ use app\User;
 use app\Tag;
 use app\Station;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use app\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
+       
         $posts = Post::all();
         $posts->load('users','tags','stations');
-   
         return view('posts.index', ['posts'=>$posts]);
     }
 
@@ -44,20 +45,33 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request, Tag $tag_name)
+    public function store(Request $request, Tag $tag_name)
     {
         $post = new Post;
-        
         $post->content = $request->content;
         $post->user_id = $request->user_id;
         $post->station_id = $request->station_id;
         
         if($request->has('image'))
         {
-        // $image = base64_encode(file_get_contents($request->image->getRealPath()));
-        // Post::insert(["image" => $image]);
-        $filename = $request->file('image')->store('public/images');
-        $post->image = basename($filename);
+            $params = $request->validate([
+                'image' => 'required|file|image|max:4000',
+            ]);
+
+            $file = $params['image'];
+            $fileContents = file_get_contents($file->getRealPath());
+           
+            $disk = Storage::disk('s3');
+            $disk->put($file->hashName(), $fileContents);
+
+            $post->image = $file->hashName();
+
+        // $filename = $request->file('image')->getClientOriginalName();
+        // $path = $request->file('image')->storeAs('public', $filename);
+        // $contents = Storage::get('public/'.$filename);
+        // Storage::disk('s3')->put($filename, $contents, 'public');
+        
+        
         }
 
         $post->tag_name = $request->tag_name;
@@ -72,7 +86,9 @@ class PostController extends Controller
         // dd($post);
         $post->save();
         $post->tags()->attach($tag_ids);
-        return redirect('/');
+
+        return redirect()->action('PostController@index');
+        // return redirect('/')->with(['filename'=>$filename]);
     }
 
     /**

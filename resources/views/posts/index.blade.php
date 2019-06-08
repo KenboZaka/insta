@@ -32,8 +32,12 @@
                             
                             @if(isset($post->image))
                                 <div class="col-lg-4">
-                                   
-                                    <img src="{{asset('storage/images/'.$post->image)}}" width="300px" class="my-3 rounded border">
+                                        {{-- @php
+                                         echo Storage::disk('s3')->url('heroku/'.$post->image);
+                                        @endphp --}}
+                                        <img src="{!! Storage::disk('s3')->url($post->image) !!}" width="350">
+                                        {{-- <img src="{{ url("/images/${file}") }}"> --}}
+                                    {{-- <img src="{{asset('storage/images/'.$post->image)}}" width="300px" class="my-3 rounded border"> --}}
                                 </div>
                                 @else
                                 <div class="col-lg-4 text-center py-5">
