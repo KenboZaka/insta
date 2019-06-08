@@ -63,15 +63,7 @@ class PostController extends Controller
            
             $disk = Storage::disk('s3');
             $disk->put($file->hashName(), $fileContents);
-
             $post->image = $file->hashName();
-
-        // $filename = $request->file('image')->getClientOriginalName();
-        // $path = $request->file('image')->storeAs('public', $filename);
-        // $contents = Storage::get('public/'.$filename);
-        // Storage::disk('s3')->put($filename, $contents, 'public');
-        
-        
         }
 
         $post->tag_name = $request->tag_name;
